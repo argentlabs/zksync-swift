@@ -224,7 +224,7 @@ public struct Utils {
     }
 
     public static func format(_ value: Decimal) -> String {
-        return Utils.Formatter.string(from: value as NSDecimalNumber)!
+        return (value as NSDecimalNumber).description(withLocale: Locale(identifier: "en_US_POSIX"))
     }
 
     public static func currentTimeMillis() -> Int64 {

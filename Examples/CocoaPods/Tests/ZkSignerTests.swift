@@ -64,4 +64,11 @@ class ZkSignerTests: XCTestCase {
         XCTAssertEqual(signer.publicKeyHash,
                        ZkSignerTests.PubKeyHash)
     }
+    
+    func testFormatOfDecimalWith18digitsOfPrecision() throws {
+        let decimal = Decimal(string: "0.008756000723707975")!
+        
+        XCTAssertEqual(Utils.format(decimal),
+                       "0.008756000723707975")
+    }
 }
