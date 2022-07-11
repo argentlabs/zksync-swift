@@ -71,4 +71,11 @@ class ZkSignerTests: XCTestCase {
         XCTAssertEqual(Utils.format(decimal),
                        "0.008756000723707975")
     }
+    
+    func testFormatOfDecimalWithoutFractionalDigitis() throws {
+        let decimal = Decimal(string: "1.0")!
+        
+        XCTAssertEqual(Utils.format(decimal),
+                       "1.0")
+    }
 }

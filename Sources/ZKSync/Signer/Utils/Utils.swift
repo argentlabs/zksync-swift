@@ -224,12 +224,22 @@ public struct Utils {
     }
 
     public static func format(_ value: Decimal) -> String {
-        return (value as NSDecimalNumber).description(withLocale: Locale(identifier: "en_US_POSIX"))
+        return value.significantFractionalDecimalDigits > 17
+            // `Decimal` doesn't suppport more than 17 fractional digits and so does a rounding that
+            // affects signatures
+            ? (value as NSDecimalNumber).description(withLocale: Locale(identifier: "en_US_POSIX"))
+            :  Utils.Formatter.string(from: value as NSDecimalNumber)!
     }
 
     public static func currentTimeMillis() -> Int64 {
         var darwinTime: timeval = timeval(tv_sec: 0, tv_usec: 0)
         gettimeofday(&darwinTime, nil)
         return (Int64(darwinTime.tv_sec) * 1000) + Int64(darwinTime.tv_usec / 1000)
+    }
+}
+
+private extension Decimal {
+    var significantFractionalDecimalDigits: Int {
+        return max(-exponent, 0)
     }
 }
